@@ -1,4 +1,16 @@
 #pragma once
+/*
+
+Master Mind
+
+By Kim Moltved
+Date 3/9-2019
+
+As a C++ example for Widex don in 24h
+
+Header file for the game part
+
+*/
 
 
 //#define DEBUG
@@ -11,11 +23,13 @@
 
 class MMState;
 
+// define for setting the width size, the count of colors and who many trys there is
 #define MMsize 4
 #define MMcolors 6
 #define MMtrys 10
 
 
+// Object for color pieces
 class Pieces {
 public:
 	Pieces();
@@ -24,12 +38,14 @@ public:
 	int color[MMsize];
 };
 
+// Object for the master color pieces
 class MasterPieces : public Pieces {
 public:
 	MasterPieces();
 	void ShowColor();
 };
 
+// Object for question color pieces (from the user input)
 class QuestionPieces : public Pieces {
 public:
 	void Count(MasterPieces* mp);
@@ -40,18 +56,7 @@ public:
 };
 
 
-
-
-
-
-
-class PieceColors {
-public:
-	int color[MMsize];
-
-};
-
-
+// The entry to the game state machine
 class MMGame {
 public:
 	MMGame();
@@ -74,16 +79,16 @@ private:
 };
 
 
-
+// The diffrent game state
 class MMState {
 public:
 	virtual void NewGame(MMGame*);
 	virtual void AddQuestions(MMGame*, QuestionPieces* PC);
 	virtual void GiveUp(MMGame*);
-
 };
 
 
+// State for generating new game color pieces
 class MMGenerateTest : public MMState {
 public:
 	MMGenerateTest(MMGame* context);
@@ -95,7 +100,7 @@ private:
 };
 
 
-
+// state for testing user input
 class MMWaitQuestions : public MMState {
 public:
 	MMWaitQuestions(MMGame* context);
@@ -107,38 +112,3 @@ private:
 	MMGame* _context;
 };
 
-/*
-class MMWinGame : public MMState {
-public:
-	MMWinGame(MMGame* context);
-
-	virtual void NewGame(MMGame*);
-
-private:
-	MMGame* _context;
-};
-
-
-
-class MMLossGame : public MMState {
-public:
-	MMLossGame(MMGame* context);
-
-	virtual void NewGame(MMGame*);
-
-private:
-	MMGame* _context;
-};
-
-
-
-class MMGiveUp : public MMState {
-public:
-	MMGiveUp(MMGame* context);
-
-	virtual void NewGame(MMGame*);
-
-private:
-	MMGame* _context;
-};
-*/
